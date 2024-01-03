@@ -1,3 +1,5 @@
+import 'package:consultas/constants/theme.dart';
+import 'package:consultas/screen/auth_ui/Welcome/welcome.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,12 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
         title: 'Importadora Cumpleaños',
-        theme: ThemeData(
-          primarySwatch: Colors.lightBlue,
-        ),
-        home: Scaffold(
-            appBar: AppBar(title: const Text("Consulta de productos")),
-            body: const Center(child: Text("Hola"))));
+        theme: themeData,
+        home: const Welcome());
   }
 }

@@ -1,3 +1,10 @@
+<!--
+  ~ Copyright (c) 2024.
+  ~  Este código es propiedad de Luis Chumi y está protegido por las leyes de derechos de autor.
+  ~  Se concede el permiso para usar, copiar, modificar y distribuir este software con la condición de que se incluya este aviso en todas las copias o partes sustanciales del software.
+  ~  Para obtener ayuda, soporte , contacta a Luis Chumi en luischumi.9@gmail.com.
+  -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- The INTERNET permission is required for development. Specifically,
          the Flutter tool needs it to communicate with the running application
