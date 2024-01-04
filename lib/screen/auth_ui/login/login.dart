@@ -1,9 +1,11 @@
+import 'package:consultas/constants/constants.dart';
 import 'package:consultas/constants/routes.dart';
 import 'package:consultas/screen/auth_ui/registro/registro.dart';
 import 'package:consultas/widgets/primary_button/primary_button.dart';
 import 'package:consultas/widgets/top_titulos/top_titulos.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -13,6 +15,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController correo = TextEditingController();
+  TextEditingController password = TextEditingController();
   bool isShowPassword = true;
   @override
   Widget build(BuildContext context) {
@@ -61,7 +65,12 @@ class _LoginState extends State<Login> {
             ),
             PrimaryButton(
               titulo: "Iniciar Sesión",
-              onPressed: () {},
+              onPressed: () {
+                bool isValidated= loginValidation(correo.text, password.text);
+                if(isValidated){
+                  
+                }
+              },
             ),
             const SizedBox(
               height: 12.0,
@@ -77,7 +86,8 @@ class _LoginState extends State<Login> {
                       style: TextStyle(color: Theme.of(context).primaryColor),
                     ),
                     onPressed: () {
-                      Routes.instance.push(widget:const  Registro(), context: context);
+                      Routes.instance
+                          .push(widget: const Registro(), context: context);
                     }))
           ],
         ),
