@@ -1,11 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:consultas/constants/constants.dart';
 import 'package:consultas/constants/routes.dart';
+import 'package:consultas/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:consultas/screen/auth_ui/registro/registro.dart';
+import 'package:consultas/screen/home/home.dart';
 import 'package:consultas/widgets/primary_button/primary_button.dart';
 import 'package:consultas/widgets/top_titulos/top_titulos.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -33,6 +36,7 @@ class _LoginState extends State<Login> {
               height: 12.0,
             ),
             TextFormField(
+              controller: correo,
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
                   hintText: "Correo Electronico",
@@ -41,6 +45,7 @@ class _LoginState extends State<Login> {
                   )),
             ),
             TextFormField(
+              controller: password,
               obscureText: isShowPassword,
               decoration: InputDecoration(
                 hintText: "Contraseña",
@@ -65,10 +70,16 @@ class _LoginState extends State<Login> {
             ),
             PrimaryButton(
               titulo: "Iniciar Sesión",
-              onPressed: () {
-                bool isValidated= loginValidation(correo.text, password.text);
-                if(isValidated){
-                  
+              onPressed: () async {
+                bool isValidated =
+                    loginValidation(correo.text, password.text, context);
+                if (isValidated) {
+                  bool isLogined = await FirebaseAuthHelper.instance
+                      .login(correo.text, password.text, context);
+                  if (isLogined) {
+                    Routes.instance.pushAndRemoveUntil(
+                        widget: const Home(), context: context);
+                  }
                 }
               },
             ),

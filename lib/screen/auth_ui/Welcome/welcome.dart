@@ -8,6 +8,7 @@
 import 'package:consultas/constants/assets_images.dart';
 import 'package:consultas/constants/routes.dart';
 import 'package:consultas/screen/auth_ui/login/login.dart';
+import 'package:consultas/screen/auth_ui/registro/registro.dart';
 import 'package:consultas/widgets/primary_button/primary_button.dart';
 import 'package:consultas/widgets/top_titulos/top_titulos.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,7 +26,9 @@ class Welcome extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TopTitulos(subtitulo: "Consulta nuestros productos con nuestra App", titulo: "Bienvenido"),
+              const TopTitulos(
+                  subtitulo: "Consulta nuestros productos con nuestra App",
+                  titulo: "Bienvenido"),
               Center(
                   child: Image.asset(
                 AssetsImages.instance.bienvenido,
@@ -59,7 +62,7 @@ class Welcome extends StatelessWidget {
               PrimaryButton(
                 titulo: "Iniciar Sesión",
                 onPressed: () {
-                  Routes.instance.push(widget: const Login(),context: context);
+                  Routes.instance.push(widget: const Login(), context: context);
                 },
               ),
               const SizedBox(
@@ -67,7 +70,10 @@ class Welcome extends StatelessWidget {
               ),
               PrimaryButton(
                 titulo: "Registrarse",
-                onPressed: () {},
+                onPressed: () {
+                  Routes.instance
+                      .push(widget: const Registro(), context: context);
+                },
               )
             ],
           ),

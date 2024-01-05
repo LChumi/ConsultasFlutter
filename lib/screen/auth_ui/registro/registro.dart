@@ -1,4 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:consultas/constants/constants.dart';
 import 'package:consultas/constants/routes.dart';
+import 'package:consultas/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:consultas/screen/auth_ui/login/login.dart';
 import 'package:consultas/screen/home/home.dart';
 import 'package:consultas/widgets/primary_button/primary_button.dart';
@@ -14,6 +18,10 @@ class Registro extends StatefulWidget {
 }
 
 class _RegistroState extends State<Registro> {
+  TextEditingController correo = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController nombre = TextEditingController();
+  TextEditingController telefono = TextEditingController();
   bool isShowPassword = true;
   @override
   Widget build(BuildContext context) {
@@ -31,6 +39,7 @@ class _RegistroState extends State<Registro> {
                 height: 12.0,
               ),
               TextFormField(
+                controller: nombre,
                 decoration: const InputDecoration(
                     hintText: "Nombre",
                     prefixIcon: Icon(
@@ -38,6 +47,7 @@ class _RegistroState extends State<Registro> {
                     )),
               ),
               TextFormField(
+                controller: correo,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                     hintText: "Correo Electronico",
@@ -46,6 +56,7 @@ class _RegistroState extends State<Registro> {
                     )),
               ),
               TextFormField(
+                controller: telefono,
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                     hintText: "Numero de telefono",
@@ -54,6 +65,7 @@ class _RegistroState extends State<Registro> {
                     )),
               ),
               TextFormField(
+                controller: password,
                 obscureText: isShowPassword,
                 decoration: InputDecoration(
                   hintText: "Contraseña",
@@ -78,8 +90,17 @@ class _RegistroState extends State<Registro> {
               ),
               PrimaryButton(
                 titulo: "Registrarse",
-                onPressed: () {
-                  Routes.instance.pushAndRemoveUntil(widget: const Home(), context: context);
+                onPressed: () async {
+                  bool isValidated =
+                    registroValidation(nombre.text,telefono.text,correo.text, password.text, context);
+                if (isValidated) {
+                  bool isLogined = await FirebaseAuthHelper.instance
+                      .registro(correo.text, password.text, context);
+                  if (isLogined) {
+                    Routes.instance.pushAndRemoveUntil(
+                        widget: const Home(), context: context);
+                  }
+                }
                 },
               ),
               const SizedBox(

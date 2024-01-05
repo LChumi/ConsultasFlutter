@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:quickalert/quickalert.dart';
 
-void showMessage(String message) {
+/* void showMessage(String message) {
   Fluttertoast.showToast(
       msg: message,
       backgroundColor: Colors.red,
       textColor: Colors.white,
       fontSize: 16.0);
+} */
+
+void showMessageError(String message, BuildContext context) {
+  QuickAlert.show(
+      context: context,
+      type: QuickAlertType.error,
+      title: 'Oops...',
+      text: message);
 }
 
 showLoaderDialog(BuildContext context) {
@@ -18,7 +26,7 @@ showLoaderDialog(BuildContext context) {
           mainAxisSize: MainAxisSize.min,
           children: [
             const CircularProgressIndicator(
-              color: Color(0xffe16555),
+              color: Color.fromARGB(255, 85, 174, 225),
             ),
             const SizedBox(
               height: 18.0,
@@ -74,15 +82,37 @@ String getMessageFromErrorCode(String errorCode) {
   }
 }
 
-bool loginValidation(String email, String password) {
+bool loginValidation(String email, String password, BuildContext context) {
   if (email.isEmpty && password.isEmpty) {
-    showMessage("Campos vacios");
+    showMessageError("Campos vacios", context);
     return false;
   } else if (email.isEmpty) {
-    showMessage("Email vacio");
+    showMessageError("Ingrese email", context);
     return false;
   } else if (password.isEmpty) {
-    showMessage("Contraeña vacia");
+    showMessageError("Contraseña vacia", context);
+    return false;
+  } else {
+    return true;
+  }
+}
+
+bool registroValidation(String nombre, String telefono, String email,
+    String password, BuildContext context) {
+  if (email.isEmpty && password.isEmpty && nombre.isEmpty && telefono.isEmpty) {
+    showMessageError("Campos vacios", context);
+    return false;
+  } else if (email.isEmpty) {
+    showMessageError("Ingrese email", context);
+    return false;
+  } else if (password.isEmpty) {
+    showMessageError("Contraseña vacia", context);
+    return false;
+  } else if (nombre.isEmpty) {
+    showMessageError("Nombre vacio", context);
+    return false;
+  } else if (telefono.isEmpty) {
+    showMessageError("Telefono vacio", context);
     return false;
   } else {
     return true;
